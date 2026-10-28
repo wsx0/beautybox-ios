@@ -13,36 +13,38 @@ final class HomeViewModel: ObservableObject {
     private let service = ContentService.shared
 
     func load() async {
-        isLoading = true
-        defer { isLoading = false }
-
-        if categories.isEmpty {
+        // 先秒出内置素材，避免等网络超时后一片空白
+        if videos.isEmpty {
             categories = service.categories
             selectedCategory = categories.first
+            videos = MockProvider.videos
+            isDemo = true
         }
 
         let type = Int(selectedCategory?.id ?? "2") ?? 2
+        isLoading = true
+        defer { isLoading = false }
 
         do {
             let page = try await service.feed(type: type, page: 1)
-            videos = page.list
-            isDemo = page.list.isEmpty
-            if isDemo {
-                videos = MockProvider.videos
-                errorText = "服务端返回空列表，已用演示数据占位"
-            } else {
+            if !page.list.isEmpty {
+                videos = page.list
+                isDemo = false
                 errorText = nil
+                return
             }
         } catch {
-            guard AppConfig.allowMockFallback else {
+            if !AppConfig.allowMockFallback {
                 errorText = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
                 return
             }
-            categories = service.categories
-            videos = MockProvider.videos
-            isDemo = true
-            errorText = "后端不可达，已切换演示数据：\((error as? LocalizedError)?.errorDescription ?? "")"
+            errorText = "后端不可达，正在使用内置素材：\((error as? LocalizedError)?.errorDescription ?? "")"
         }
+
+        if videos.isEmpty {
+            videos = MockProvider.videos
+        }
+        isDemo = true
     }
 
     func select(_ category: Category) async {
