@@ -15,6 +15,9 @@ tools/__pycache__/
 # 由构建脚本同步生成（CI 里会重新同步）
 ios/BeautyBox/Resources/webapp/
 
+scripts/.gh_token
+build/_device.json
+
 # 系统
 .DS_Store
 Thumbs.db
