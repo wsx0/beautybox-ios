@@ -39,21 +39,22 @@ struct AESCBCCipher: BodyCipher {
     }
 
     private func crypt(_ input: Data, operation: CCOperation) throws -> Data {
-        var output = Data(count: input.count + kCCBlockSizeAES128)
+        let capacity = input.count + kCCBlockSizeAES128
+        var output = Data(count: capacity)
         var moved = 0
-        let status = output.withUnsafeMutableBytes { outBuf -> CCCryptorStatus in
+        let status: CCCryptorStatus = output.withUnsafeMutableBytes { (outBuf: UnsafeMutableRawBufferPointer) -> CCCryptorStatus in
             guard let outPtr = outBuf.baseAddress else { return CCCryptorStatus(kCCMemoryFailure) }
-            return input.withUnsafeBytes { inBuf -> CCCryptorStatus in
+            return input.withUnsafeBytes { (inBuf: UnsafeRawBufferPointer) -> CCCryptorStatus in
                 guard let inPtr = inBuf.baseAddress else { return CCCryptorStatus(kCCMemoryFailure) }
-                return key.withUnsafeBytes { keyBuf in
-                    iv.withUnsafeBytes { ivBuf in
+                return key.withUnsafeBytes { (keyBuf: UnsafeRawBufferPointer) -> CCCryptorStatus in
+                    iv.withUnsafeBytes { (ivBuf: UnsafeRawBufferPointer) -> CCCryptorStatus in
                         CCCrypt(operation,
                                 CCAlgorithm(kCCAlgorithmAES),
                                 CCOptions(kCCOptionPKCS7Padding),
                                 keyBuf.baseAddress, key.count,
                                 ivBuf.baseAddress,
                                 inPtr, input.count,
-                                outPtr, output.count,
+                                outPtr, capacity,
                                 &moved)
                     }
                 }
