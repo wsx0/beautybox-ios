@@ -11,17 +11,17 @@ struct VideoPlayerScreen: View {
             VStack(spacing: 16) {
                 if let player {
                     VideoPlayer(player: player)
-                        .frame(height: 240)
+                        .frame(height: 260)
                         .onAppear { player.play() }
                 } else {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(Theme.surface)
-                        .frame(height: 240)
+                        .frame(height: 260)
                         .overlay(
                             VStack(spacing: 8) {
                                 Image(systemName: "play.slash")
                                     .font(.system(size: 30))
-                                Text("无播放地址（演示数据）")
+                                Text("无法播放：素材缺失")
                                     .font(.caption)
                             }
                             .foregroundColor(Theme.secondaryText)
@@ -33,6 +33,11 @@ struct VideoPlayerScreen: View {
                     Text("\(item.viewsText) 次播放 · \(item.likes) 赞")
                         .font(.caption)
                         .foregroundColor(Theme.secondaryText)
+                    if item.playURL.hasPrefix("sample:") || item.playURL.isEmpty {
+                        Text("当前播放内置演示视频（无后端时默认行为）")
+                            .font(.caption2)
+                            .foregroundColor(Theme.secondaryText)
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, Theme.pagePadding)
@@ -41,11 +46,15 @@ struct VideoPlayerScreen: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            if let url = URL(string: item.playURL), !item.playURL.isEmpty {
-                player = AVPlayer(url: url)
-            }
-        }
+        .onAppear { makePlayer() }
         .onDisappear { player?.pause() }
+    }
+
+    private func makePlayer() {
+        if item.playURL.hasPrefix("sample:") || item.playURL.isEmpty {
+            if let url = SampleMedia.videoURL { player = AVPlayer(url: url) }
+        } else if let url = URL(string: item.playURL) {
+            player = AVPlayer(url: url)
+        }
     }
 }

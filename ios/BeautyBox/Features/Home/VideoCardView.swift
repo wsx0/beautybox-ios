@@ -1,4 +1,7 @@
 import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#endif
 
 struct VideoCardView: View {
     let item: VideoItem
@@ -6,7 +9,7 @@ struct VideoCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .bottomTrailing) {
-                coverPlaceholder
+                coverView
                 if !item.durationText.isEmpty {
                     Text(item.durationText)
                         .font(.system(size: 11, weight: .medium))
@@ -54,8 +57,14 @@ struct VideoCardView: View {
     }
 
     @ViewBuilder
-    private var coverPlaceholder: some View {
-        if let url = URL(string: item.cover), !item.cover.isEmpty {
+    private var coverView: some View {
+        if item.cover.hasPrefix("sample:"),
+           let path = SampleMedia.imagePath(String(item.cover.dropFirst(7))),
+           let ui = UIImage(contentsOfFile: path) {
+            Image(uiImage: ui)
+                .resizable()
+                .scaledToFill()
+        } else if !item.cover.isEmpty, let url = URL(string: item.cover) {
             AsyncImage(url: url) { phase in
                 switch phase {
                 case .success(let image): image.resizable().scaledToFill()

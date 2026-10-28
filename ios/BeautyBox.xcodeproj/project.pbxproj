@@ -12,6 +12,7 @@
 		E30FD068E72FFF12782C989E /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0E235AE87B4D93144E95B /* AppConfig.swift */; };
 		069BF411963DCDAF1CCA6206 /* UIDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FAB4D39A8602B13434C2D /* UIDeviceModel.swift */; };
 		BD7B7E889632ED3C64347CE5 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11749C421CE1FB10A8C0F83 /* KeychainStore.swift */; };
+		7B770756E4C9DCFB8593718F /* SampleMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599AA52470986FE785FC406 /* SampleMedia.swift */; };
 		1BA74F4B62C6DA88E791066E /* MockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68C3D5D4A813EC56DE2305 /* MockProvider.swift */; };
 		479DE0B5C8BFE1742818A5D1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE6D20528E94C2A771B5C3 /* Models.swift */; };
 		3C139DC4F58B30DAAC1F30BF /* ServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD0981AC2725BF15EC30D31 /* ServerConfig.swift */; };
@@ -38,6 +39,15 @@
 		690F4C9092C8AA9A225CB0E6 /* WebContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1F9FC634F28B5A7FA944C3 /* WebContainerView.swift */; };
 		320DF2AA372F00ED00C96410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CDE3A5D722296F169F81A7B /* Assets.xcassets */; };
 		C62C913C04B0887CB5713E50 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0FAFD24A10850FA8884EC480 /* PrivacyInfo.xcprivacy */; };
+		F613BE552CFD691E2830A622 /* cover_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A8572E104B0E4A729F11C60D /* cover_1.jpg */; };
+		505CFA1E1B4F06409EA36920 /* cover_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AD0AE7B308BBCBA74105B983 /* cover_2.jpg */; };
+		FDE6CBEEFF36565A98F58D91 /* cover_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA4B8A071392D9C01F8F7F12 /* cover_3.jpg */; };
+		27097E8B1E6B8EEF45EB6DAE /* cover_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 734C50748A56F5F8B961B4AD /* cover_4.jpg */; };
+		09C27F5725DFC7402C92354E /* cover_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F956EC56B0C05B9F1BC254D /* cover_5.jpg */; };
+		E84C991F8C7DDE24143BEAAE /* cover_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D2B061056F0BAC182B895DB /* cover_6.jpg */; };
+		6B82E61E574EDF6D79B8233D /* cover_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7FF779EE307FDECA7E8D34DF /* cover_7.jpg */; };
+		E4241C7929A4B26260B8F530 /* cover_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E8ABB8BF9F0F5FF5C9DAA361 /* cover_8.jpg */; };
+		F938C70CDC62844B88CEB467 /* demo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = FC618400FD84FA3AAC75807F /* demo.mp4 */; };
 		A86025C4D1EC9342AF8442D8 /* webapp in Resources */ = {isa = PBXBuildFile; fileRef = C7794C80F1A72CB9BB185896 /* webapp */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +58,7 @@
 		3AA0E235AE87B4D93144E95B /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		278FAB4D39A8602B13434C2D /* UIDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceModel.swift; sourceTree = "<group>"; };
 		F11749C421CE1FB10A8C0F83 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		C599AA52470986FE785FC406 /* SampleMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleMedia.swift; sourceTree = "<group>"; };
 		4E68C3D5D4A813EC56DE2305 /* MockProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProvider.swift; sourceTree = "<group>"; };
 		25FE6D20528E94C2A771B5C3 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		8FD0981AC2725BF15EC30D31 /* ServerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfig.swift; sourceTree = "<group>"; };
@@ -74,6 +85,15 @@
 		1A1F9FC634F28B5A7FA944C3 /* WebContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContainerView.swift; sourceTree = "<group>"; };
 		9CDE3A5D722296F169F81A7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0FAFD24A10850FA8884EC480 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A8572E104B0E4A729F11C60D /* cover_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_1.jpg; sourceTree = "<group>"; };
+		AD0AE7B308BBCBA74105B983 /* cover_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_2.jpg; sourceTree = "<group>"; };
+		FA4B8A071392D9C01F8F7F12 /* cover_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_3.jpg; sourceTree = "<group>"; };
+		734C50748A56F5F8B961B4AD /* cover_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_4.jpg; sourceTree = "<group>"; };
+		5F956EC56B0C05B9F1BC254D /* cover_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_5.jpg; sourceTree = "<group>"; };
+		3D2B061056F0BAC182B895DB /* cover_6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_6.jpg; sourceTree = "<group>"; };
+		7FF779EE307FDECA7E8D34DF /* cover_7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_7.jpg; sourceTree = "<group>"; };
+		E8ABB8BF9F0F5FF5C9DAA361 /* cover_8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover_8.jpg; sourceTree = "<group>"; };
+		FC618400FD84FA3AAC75807F /* demo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo.mp4; sourceTree = "<group>"; };
 		C7794C80F1A72CB9BB185896 /* webapp */ = {isa = PBXFileReference; lastKnownFileType = folder; path = webapp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				56BB0DC922DD3B706FC7A536 /* Device */,
+				0A6098A98BCB7199C404B1EB /* Media */,
 				729C6F57A187F8D53AED4618 /* Mock */,
 				F624CBD73C8832DCAFB3526B /* Models */,
 				7562A99B9B89F56F529E0847 /* Network */,
@@ -146,6 +167,14 @@
 				278FAB4D39A8602B13434C2D /* UIDeviceModel.swift */,
 			);
 			path = Device;
+			sourceTree = "<group>";
+		};
+		0A6098A98BCB7199C404B1EB /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				C599AA52470986FE785FC406 /* SampleMedia.swift */,
+			);
+			path = Media;
 			sourceTree = "<group>";
 		};
 		729C6F57A187F8D53AED4618 /* Mock */ = {
@@ -280,11 +309,28 @@
 		31ED21F909946DA797419B38 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F6CC8D81B080E957B3898DA1 /* samples */,
 				9CDE3A5D722296F169F81A7B /* Assets.xcassets */,
 				0FAFD24A10850FA8884EC480 /* PrivacyInfo.xcprivacy */,
 				C7794C80F1A72CB9BB185896 /* webapp */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		F6CC8D81B080E957B3898DA1 /* samples */ = {
+			isa = PBXGroup;
+			children = (
+				A8572E104B0E4A729F11C60D /* cover_1.jpg */,
+				AD0AE7B308BBCBA74105B983 /* cover_2.jpg */,
+				FA4B8A071392D9C01F8F7F12 /* cover_3.jpg */,
+				734C50748A56F5F8B961B4AD /* cover_4.jpg */,
+				5F956EC56B0C05B9F1BC254D /* cover_5.jpg */,
+				3D2B061056F0BAC182B895DB /* cover_6.jpg */,
+				7FF779EE307FDECA7E8D34DF /* cover_7.jpg */,
+				E8ABB8BF9F0F5FF5C9DAA361 /* cover_8.jpg */,
+				FC618400FD84FA3AAC75807F /* demo.mp4 */,
+			);
+			path = samples;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,6 +393,15 @@
 			files = (
 				320DF2AA372F00ED00C96410 /* Assets.xcassets in Resources */,
 				C62C913C04B0887CB5713E50 /* PrivacyInfo.xcprivacy in Resources */,
+				F613BE552CFD691E2830A622 /* cover_1.jpg in Resources */,
+				505CFA1E1B4F06409EA36920 /* cover_2.jpg in Resources */,
+				FDE6CBEEFF36565A98F58D91 /* cover_3.jpg in Resources */,
+				27097E8B1E6B8EEF45EB6DAE /* cover_4.jpg in Resources */,
+				09C27F5725DFC7402C92354E /* cover_5.jpg in Resources */,
+				E84C991F8C7DDE24143BEAAE /* cover_6.jpg in Resources */,
+				6B82E61E574EDF6D79B8233D /* cover_7.jpg in Resources */,
+				E4241C7929A4B26260B8F530 /* cover_8.jpg in Resources */,
+				F938C70CDC62844B88CEB467 /* demo.mp4 in Resources */,
 				A86025C4D1EC9342AF8442D8 /* webapp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +418,7 @@
 				E30FD068E72FFF12782C989E /* AppConfig.swift in Sources */,
 				069BF411963DCDAF1CCA6206 /* UIDeviceModel.swift in Sources */,
 				BD7B7E889632ED3C64347CE5 /* KeychainStore.swift in Sources */,
+				7B770756E4C9DCFB8593718F /* SampleMedia.swift in Sources */,
 				1BA74F4B62C6DA88E791066E /* MockProvider.swift in Sources */,
 				479DE0B5C8BFE1742818A5D1 /* Models.swift in Sources */,
 				3C139DC4F58B30DAAC1F30BF /* ServerConfig.swift in Sources */,

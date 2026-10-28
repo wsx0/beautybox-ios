@@ -88,7 +88,7 @@
       var w = D.works(cur.type, 30).filter(function (x) { return x.id === id; })[0] || D.works(cur.type, 1)[0];
       window.__cur = w;
       return U.nav('详情', { action: { key: 'share', text: '分享' } }) +
-        '<div class="cover" style="' + U.coverStyle(w) + '"><span class="play">▶</span></div>' +
+        '<div class="cover" style="' + (w.cover ? 'background:url(' + w.cover + ') center/cover no-repeat' : U.coverStyle(w)) + '"><span class="play">▶</span></div>' +
         '<div class="info"><h2>' + U.esc(w.title) + '</h2>' +
         '<div class="sub"><span>作者 ' + U.esc(w.author) + '</span>' +
         '<span>播放 ' + U.views(w.views) + '</span><span>收藏量 ' + U.views(w.likes) + '</span>' +
@@ -107,6 +107,7 @@
       root.querySelector('#play').addEventListener('click', function () {
         A.call(A.unlock('video'), { body: { id: w.id } }, function () { return { ok: 1 }; }).then(function () {
           U.toast('已扣除 ' + w.score + ' 积分并解锁（演示）');
+          window.__cur = w;
           window.GO('player', w.id);
         });
       });
@@ -123,9 +124,11 @@
     title: '播放',
     render: function (id) {
       var w = window.__cur || {};
+      var src = w.playUrl || 'media/demo.mp4';
       return '<div class="sheet">' + U.nav('播放', { action: { key: 'close', text: '关闭' } }) +
-        '<div class="stage"><div class="empty" style="color:#888">片源地址需后端返回<br>当前为演示数据<br><br>' +
-        U.esc(w.title || '') + '</div></div></div>';
+        '<div class="stage"><video src="' + U.esc(src) + '" controls autoplay muted loop playsinline ' +
+        'webkit-playsinline style="width:100%;max-height:100%"></video></div>' +
+        '<div class="player-meta">' + U.esc(w.title || '') + ' · 内置演示视频</div></div>';
     },
     bind: function (root) {
       var act = root.querySelector('[data-act="close"]');

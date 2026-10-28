@@ -47,8 +47,11 @@ window.UI = (function () {
     var tags = '';
     if (w.vip) tags += '<span class="tag">VIP</span>';
     if (w.unlocked) tags += '<span class="tag" style="border-color:#2e9e4f;color:#2e9e4f">已解锁</span>';
+    var thumbInner = w.cover
+      ? '<img src="' + esc(w.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;display:block">'
+      : esc(w.title.slice(0, 1));
     return '<a class="row" href="#/detail/' + encodeURIComponent(w.id) + '">' +
-      '<div class="thumb" style="' + coverStyle(w) + '">' + esc(w.title.slice(0, 1)) +
+      '<div class="thumb" style="' + (w.cover ? '' : coverStyle(w)) + '">' + thumbInner +
       (w.duration ? '<span class="dur">' + duration(w.duration) + '</span>' : '') + '</div>' +
       '<div class="meta"><div class="h">' + tags + esc(w.title) + '</div>' +
       '<div class="s"><span>' + esc(w.author) + '</span><span>' + views(w.views) + ' 次播放</span>' +
