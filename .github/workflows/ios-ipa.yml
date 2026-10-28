@@ -1,0 +1,63 @@
+name: build-ipa
+
+# 没有 Mac 也能出 ipa：GitHub 免费的 macOS runner 编译，产物在 Actions 的 Artifacts 里
+'on':
+  workflow_dispatch:
+  push:
+    paths:
+      - 'ios/**'
+      - 'tools/**'
+      - 'scripts/**'
+      - '.github/workflows/ios-ipa.yml'
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Toolchain info
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+          python3 --version
+
+      - name: Sync webapp into app resources
+        run: |
+          rm -rf ios/BeautyBox/Resources/webapp
+          mkdir -p ios/BeautyBox/Resources/webapp
+          rsync -a --exclude 'serve.py' --exclude 'qr.png' --exclude '__pycache__' \
+            ios/webapp/ ios/BeautyBox/Resources/webapp/
+          find ios/BeautyBox/Resources/webapp -type f | wc -l
+
+      - name: Generate Xcode project
+        run: python3 tools/gen_xcodeproj.py --ios-dir ios --verify
+
+      - name: Archive (unsigned)
+        run: |
+          xcodebuild -project ios/BeautyBox.xcodeproj -scheme BeautyBox \
+            -configuration Release -sdk iphoneos \
+            -archivePath build/BeautyBox.xcarchive \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+            build archive
+
+      - name: Package ipa
+        run: |
+          mkdir -p build/Payload
+          cp -R build/BeautyBox.xcarchive/Products/Applications/BeautyBox.app build/Payload/
+          cd build && zip -qry BeautyBox-unsigned.ipa Payload
+          ls -lh BeautyBox-unsigned.ipa
+          unzip -l BeautyBox-unsigned.ipa | head -n 25
+
+      - name: Verify ipa structure
+        run: python3 scripts/verify_ipa.py build/BeautyBox-unsigned.ipa
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BeautyBox-unsigned-ipa
+          path: build/BeautyBox-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 30
