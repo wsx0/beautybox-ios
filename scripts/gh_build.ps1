@@ -46,6 +46,8 @@ if (-not $exists) {
 
 Say "[2/6] 提交并推送"
 Push-Location $Root
+$prevEap = $ErrorActionPreference
+$ErrorActionPreference = "Continue"
 try {
     $git = "git"
     if (-not (Get-Command $git -ErrorAction SilentlyContinue)) { $git = "C:\Program Files\Git\cmd\git.exe" }
@@ -58,7 +60,7 @@ try {
     & $git branch -M $Branch
     & $git push -u origin $Branch --force 2>&1 | Select-Object -Last 3
     if ($LASTEXITCODE -ne 0) { Fail "推送失败" }
-} finally { Pop-Location }
+} finally { Pop-Location; $ErrorActionPreference = $prevEap }
 
 Say "[3/6] 触发 workflow $Workflow"
 Start-Sleep -Seconds 3
