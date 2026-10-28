@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F63D291B139887930EA6060 /* BeautyBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C5CCE4C34851B502DE1CAA /* BeautyBoxApp.swift */; };
 		A7DC640EBB632113E4800E6C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8207C15C8C5A255753F342 /* RootView.swift */; };
 		E30FD068E72FFF12782C989E /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0E235AE87B4D93144E95B /* AppConfig.swift */; };
 		069BF411963DCDAF1CCA6206 /* UIDeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278FAB4D39A8602B13434C2D /* UIDeviceModel.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		E4077F72223F135BC3D8608D /* BeautyBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeautyBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		98C5CCE4C34851B502DE1CAA /* BeautyBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyBoxApp.swift; sourceTree = "<group>"; };
 		1B8207C15C8C5A255753F342 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		3AA0E235AE87B4D93144E95B /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		278FAB4D39A8602B13434C2D /* UIDeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceModel.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		75AFF181B4F76B45886FE745 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				98C5CCE4C34851B502DE1CAA /* BeautyBoxApp.swift */,
 				1B8207C15C8C5A255753F342 /* RootView.swift */,
 			);
 			path = App;
@@ -355,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F63D291B139887930EA6060 /* BeautyBoxApp.swift in Sources */,
 				A7DC640EBB632113E4800E6C /* RootView.swift in Sources */,
 				E30FD068E72FFF12782C989E /* AppConfig.swift in Sources */,
 				069BF411963DCDAF1CCA6206 /* UIDeviceModel.swift in Sources */,
