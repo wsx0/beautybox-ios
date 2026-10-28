@@ -36,19 +36,22 @@ struct PageResult<T: Decodable>: Decodable {
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
 
-        let items = (try? c.decode([T].self, forKey: .list))
-            ?? (try? c.decode([T].self, forKey: .data))
-            ?? (try? c.decode([T].self, forKey: .items))
-            ?? (try? c.decode([T].self, forKey: .records)) ?? []
+        let listA: [T]? = try? c.decode([T].self, forKey: .list)
+        let listB: [T]? = try? c.decode([T].self, forKey: .data)
+        let listC: [T]? = try? c.decode([T].self, forKey: .items)
+        let listD: [T]? = try? c.decode([T].self, forKey: .records)
+        let items: [T] = listA ?? listB ?? listC ?? listD ?? []
 
-        let totalValue = (try? c.decode(Int.self, forKey: .total))
-            ?? (try? c.decode(Int.self, forKey: .totalCount))
-            ?? (try? c.decode(Int.self, forKey: .total_count)) ?? 0
+        let totalA: Int? = try? c.decode(Int.self, forKey: .total)
+        let totalB: Int? = try? c.decode(Int.self, forKey: .totalCount)
+        let totalC: Int? = try? c.decode(Int.self, forKey: .total_count)
+        let totalValue: Int = totalA ?? totalB ?? totalC ?? 0
 
-        let pageValue = (try? c.decode(Int.self, forKey: .page))
-            ?? (try? c.decode(Int.self, forKey: .pageNum))
-            ?? (try? c.decode(Int.self, forKey: .page_num))
-            ?? (try? c.decode(Int.self, forKey: .current)) ?? 1
+        let pageA: Int? = try? c.decode(Int.self, forKey: .page)
+        let pageB: Int? = try? c.decode(Int.self, forKey: .pageNum)
+        let pageC: Int? = try? c.decode(Int.self, forKey: .page_num)
+        let pageD: Int? = try? c.decode(Int.self, forKey: .current)
+        let pageValue: Int = pageA ?? pageB ?? pageC ?? pageD ?? 1
 
         let moreValue: Bool
         if let v = (try? c.decode(Bool.self, forKey: .hasMore)) ?? (try? c.decode(Bool.self, forKey: .has_more)) {

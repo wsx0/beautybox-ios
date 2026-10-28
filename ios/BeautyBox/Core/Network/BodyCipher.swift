@@ -1,5 +1,6 @@
 import Foundation
 import CryptoKit
+import CommonCrypto
 
 /// 请求体加解密。
 ///
@@ -7,8 +8,7 @@ import CryptoKit
 ///   - Server.e.c(String, int key) -> abc.ea5(byte[], int)
 ///   - Server.e.a(byte[], int key) -> abc.da5(byte[], int)
 /// key 为 1 时加密（j.r / j.u 默认传 1），key 为 0 时明文（j.p 与所有 GET）。
-/// libali.so 里这些方法由 JNI_OnLoad 动态注册，导出表只有 abl/abm/ams/amu，
-/// 需要用 Frida 在运行期抓 Java_c_abc_ea5 的入参和返回值（见 tools/frida_dump_cipher.js）。
+/// 密钥要从 libali.so 里还原（见 tools/frida_dump_cipher.js）。
 protocol BodyCipher {
     func encrypt(_ plain: Data) throws -> Data
     func decrypt(_ cipher: Data) throws -> Data
@@ -20,7 +20,7 @@ struct PlainCipher: BodyCipher {
     func decrypt(_ cipher: Data) throws -> Data { cipher }
 }
 
-/// AES-CBC/PKCS7。密钥槽位与安卓一致（keyIndex），落地密钥从 libali.so 提取后填入。
+/// AES-CBC/PKCS7（CommonCrypto 实现，CryptoKit 只提供 GCM）。
 struct AESCBCCipher: BodyCipher {
     let key: Data
     let iv: Data
@@ -31,13 +31,39 @@ struct AESCBCCipher: BodyCipher {
     }
 
     func encrypt(_ plain: Data) throws -> Data {
-        let box = try AES(key: Array(key), blockMode: CBC(iv: Array(iv)), padding: .pkcs7)
-        return Data(try box.encrypt(Array(plain)))
+        try crypt(plain, operation: CCOperation(kCCEncrypt))
     }
 
     func decrypt(_ cipher: Data) throws -> Data {
-        let box = try AES(key: Array(key), blockMode: CBC(iv: Array(iv)), padding: .pkcs7)
-        return Data(try box.decrypt(Array(cipher)))
+        try crypt(cipher, operation: CCOperation(kCCDecrypt))
+    }
+
+    private func crypt(_ input: Data, operation: CCOperation) throws -> Data {
+        var output = Data(count: input.count + kCCBlockSizeAES128)
+        var moved = 0
+        let status = output.withUnsafeMutableBytes { outBuf -> CCCryptorStatus in
+            guard let outPtr = outBuf.baseAddress else { return CCCryptorStatus(kCCMemoryFailure) }
+            return input.withUnsafeBytes { inBuf -> CCCryptorStatus in
+                guard let inPtr = inBuf.baseAddress else { return CCCryptorStatus(kCCMemoryFailure) }
+                return key.withUnsafeBytes { keyBuf in
+                    iv.withUnsafeBytes { ivBuf in
+                        CCCrypt(operation,
+                                CCAlgorithm(kCCAlgorithmAES),
+                                CCOptions(kCCOptionPKCS7Padding),
+                                keyBuf.baseAddress, key.count,
+                                ivBuf.baseAddress,
+                                inPtr, input.count,
+                                outPtr, output.count,
+                                &moved)
+                    }
+                }
+            }
+        }
+        guard status == CCCryptorStatus(kCCSuccess) else {
+            throw NSError(domain: "AESCBCCipher", code: Int(status),
+                          userInfo: [NSLocalizedDescriptionKey: "CCCrypt status \(status)"])
+        }
+        return output.prefix(moved)
     }
 }
 

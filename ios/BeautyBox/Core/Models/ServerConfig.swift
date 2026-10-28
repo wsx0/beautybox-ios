@@ -1,8 +1,8 @@
 import Foundation
 
 /// 服务端下发的全局配置（对应安卓 com.secret.prettyhezi.Server.g）。
-struct ServerConfig: Decodable {
-    struct Ad: Decodable {
+struct ServerConfig: Codable {
+    struct Ad: Codable {
         let id: Int64?
         let img: String?
         let url: String?
@@ -10,19 +10,19 @@ struct ServerConfig: Decodable {
         let loading: Int?
     }
 
-    struct ApiServer: Decodable {
+    struct ApiServer: Codable {
         let api_url: String?
         let type: Int?
         let sort: Int?
         let cdns: [CDN]?
     }
 
-    struct CDN: Decodable {
+    struct CDN: Codable {
         let api_url: String?
         let type: Int?
     }
 
-    struct Sys: Decodable {
+    struct Sys: Codable {
         let about: Int?
         let app_version: String?
         let app_apk: String?
