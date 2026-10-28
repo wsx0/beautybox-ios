@@ -13,6 +13,29 @@
 
 ---
 
+## 现在从哪一步开始（三条命令）
+
+本地仓库已经初始化并提交好：96 个文件、0.46 MB（extract/ 与 jadx/jdk 工具链已 gitignore）。CI 的每一步我都在本机复刻跑过：同步 webapp（15 文件）→ 生成工程（--verify OK）→ pbxproj 里 webapp 目录引用在位。
+
+**路线 A：有 GitHub token（全自动）**
+
+    $env:GH_TOKEN="ghp_xxx"          # 只需一次 repo + workflow 权限，用完可撤销
+    .\scripts\gh_build.ps1 -Repo "你的账号/beautybox-ios"
+
+它会建私有库 → 推送 → 触发 build-ipa → 每 15 秒轮询 → 下载 artifact → 解出 ipa → 跑结构校验，最后打印 ipa 路径。
+
+**路线 B：手动推**
+
+    git remote add origin https://github.com/你的账号/仓库名.git
+    git push -u origin main
+    # 然后仓库页 → Actions → build-ipa → Run workflow → 下载 Artifacts
+
+**路线 C：有 Mac**
+
+    ./scripts/build_ipa.sh           # build/BeautyBox-unsigned.ipa
+
+拿到 ipa 后：`python scripts/verify_ipa.py <ipa>` → Sideloadly 签名装（详见 scripts/sideload.md）。
+
 ## A. 主屏 Web App（推荐，60 秒装好）
 
 1. 电脑上起服务（已在本机跑过一遍，端口 8088）：
