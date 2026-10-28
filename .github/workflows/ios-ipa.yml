@@ -32,6 +32,9 @@ jobs:
             ios/webapp/ ios/BeautyBox/Resources/webapp/
           find ios/BeautyBox/Resources/webapp -type f | wc -l
 
+      - name: Install verify deps
+        run: python3 -m pip install --quiet --break-system-packages pbxproj || python3 -m pip install --quiet --user pbxproj || echo '跳过 pbxproj，走轻量校验'
+
       - name: Generate Xcode project
         run: python3 tools/gen_xcodeproj.py --ios-dir ios --verify
 
